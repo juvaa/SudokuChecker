@@ -10,6 +10,11 @@ public class SudokuVerifierTest {
 // An incorrect Sudoku string: 123456789912345678891234567789123456678912345567891234456789123345678912234567891
 String c = "417369825632158947958724316825437169791586432346912758289643571573291684164875293";
 String i = "123456789912345678891234567789123456678912345567891234456789123345678912234567891";
+String l = "4173698256321589479587243168254371697915864323469127582896435715732916841648752933"; // Length 82
+String s = "41736982563215894795872431682543716979158643234691275828964357157329168416487529"; // Length 80
+String z = "017369825632158947958724316825437169791586432346912758289643571573291684164875293"; // Contains zero
+String r = "111111111222222222333333333444444444555555555666666666777777777888888888999999999"; // Row repeat
+String cl = "123456789123456789123456789123456789123456789123456789123456789123456789123456789"; // Column repeat
 SudokuVerifier v = new SudokuVerifier();
 
 	@Test
@@ -25,5 +30,33 @@ SudokuVerifier v = new SudokuVerifier();
 		
 	}
 	
+	@Test
+	public void testTooLongString() {
+		int a = v.verify(l);
+		assertEquals("incorrectt string", a, -1);
+	}
 	
+	@Test
+	public void testTooShortString() {
+		int a = v.verify(s);
+		assertEquals("incorrectt string", a, -1);
+	}
+	
+	@Test
+	public void testZeroString() {
+		int a = v.verify(z);
+		assertEquals("incorrectt string", a, -1);
+	}
+	
+	@Test
+	public void testRowString() {
+		int a = v.verify(r);
+		assertEquals("incorrectt string", a, -3);
+	}
+	
+	@Test
+	public void testColumnString() {
+		int a = v.verify(cl);
+		assertEquals("incorrectt string", a, -4);
+	}
 }
